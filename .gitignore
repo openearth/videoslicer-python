@@ -2,3 +2,4 @@
 *.egg-info
 _build
 _static
+__pycache__
