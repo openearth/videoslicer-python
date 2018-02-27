@@ -1,8 +1,6 @@
 import cv2
 import itertools
 import numpy as np
-import scipy.spatial
-import sklearn.cluster
 from scipy.optimize import fsolve
 
 from videoslicer import VideoFrame
@@ -210,9 +208,9 @@ class VideoFrameCRS(VideoFrame):
     def find_markers(self):
         '''Find markers in the video frame given a specific method'''
         if self.method == 'redness':
-            self.marker_position_uv = find_markers_redness(**self.method_args)
+            self.marker_position_uv = find_markers_redness(self, **self.method_args)
         elif self.method == 'template':
-            self.marker_position_uv = find_markers_template(**self.method_args)
+            self.marker_position_uv = find_markers_template(self, **self.method_args)
         else:
             raise ValueError('Unsupported method: %s' % self.method)
         

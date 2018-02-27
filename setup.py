@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='videoslicer',
-    version='1.0.0rc1',
+    version='1.0.0rc2',
     author='Bas Hoonhout',
     author_email='bas.hoonhout@deltares.nl',
     url='http://videoslicer.readthedocs.io/',
@@ -14,7 +14,7 @@ setup(
         'Environment :: Console',
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
-        'License :: OSI Approved :: MIT',
+        'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Operating System :: MacOS :: MacOS X',
         'Operating System :: Microsoft :: Windows',

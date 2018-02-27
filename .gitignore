@@ -3,3 +3,5 @@
 _build
 _static
 __pycache__
+build
+dist

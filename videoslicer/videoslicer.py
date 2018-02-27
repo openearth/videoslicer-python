@@ -71,7 +71,7 @@ class VideoSlicer(object):
         
         
     def __repr__(self):
-        return '{}(frames={:d}, shape={:d}x{:d}px, depth={:d}, fps={:d}, axis={:d})'.format(
+        return '{}(frames={:d}, shape={:d}x{:d}px, depth={:d}, fps={:0.0f}, axis={:d})'.format(
             self.__class__.__name__, *self.shape, self.fps, self.axis
         )
     
@@ -358,14 +358,10 @@ class VideoView(object):
 
         '''
         
-        i = list(range(n))
+        i = np.asarray(list(range(n)))
         if s is not None:
             i = i[s]
-        try:
-            iter(i)
-        except:
-            i = [i]
-        return i
+        return list(i)
     
     
 class VideoFrame(np.ndarray):
@@ -440,7 +436,7 @@ class VideoFrame(np.ndarray):
 
     
     @classmethod
-    def read(cls, filename):
+    def read(cls, filename, **kwargs):
         '''Initialize VideoFrame object from image file
 
         Parameters
@@ -455,7 +451,7 @@ class VideoFrame(np.ndarray):
 
         '''
         
-        return cls(cv2.imread(filename))
+        return cls(cv2.imread(filename), **kwargs)
         
         
     def write(self, filename):

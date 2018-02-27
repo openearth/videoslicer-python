@@ -1,3 +1,9 @@
+import cv2
+import scipy.spatial
+import sklearn.cluster
+import numpy as np
+
+
 def find_markers_template(frame, size_min=25, size_max=75,
                           n_markers=4, threshold=.6, max_variance=10):
     '''Detects markers in image frame based on template matching
@@ -36,14 +42,14 @@ def find_markers_template(frame, size_min=25, size_max=75,
 
     '''
 
-    frame = frame.astype(np.float32)
-
+    frame = cv2.cvtColor(frame.astype(np.uint8), cv2.COLOR_BGR2RGB)
+    
     marker_position_uv = []
     for sz in range(size_max, size_min, -1):
             
         tmpl = np.zeros((sz,sz,3), dtype=np.uint8) + 255
         tmpl = cv2.circle(tmpl, (sz//2,sz//2), sz//4, (255,0,0), -1)
-        matches = cv2.matchTemplate(frame, tmpl.astype(np.float32), cv2.TM_CCOEFF_NORMED)
+        matches = cv2.matchTemplate(frame, tmpl, cv2.TM_CCOEFF_NORMED)
 
         # skip if not enough marker are found
         if np.sum(matches >= threshold) < n_markers:
@@ -70,7 +76,7 @@ def find_markers_template(frame, size_min=25, size_max=75,
         for i, locs in enumerate(locsc):
             vals = [matches[tuple(loc[::-1])] for loc in locs]
             locsc[i] = locs[np.argmax(vals)] + np.asarray([sz//2,sz//2])
-            locsc = np.asarray(locsc)[:,::-1]
+        locsc = np.asarray(locsc)[:,::-1]
                 
         ix = locsc[:,0].argsort()
         marker_position_uv = [tuple(c) for c in locsc[ix]]
@@ -78,7 +84,7 @@ def find_markers_template(frame, size_min=25, size_max=75,
     return marker_position_uv
 
 
-def find_markers_redness(frame, n_markers=4, min_redness=.5, max_iter=10):
+def find_markers_redness(frame, n_markers=4, min_redness=.5, max_iter=10, max_distance=50):
     '''Detects markers in image frame based on pixel redness
 
     Red pixels are clustered in a predefined number of marker
@@ -102,6 +108,8 @@ def find_markers_redness(frame, n_markers=4, min_redness=.5, max_iter=10):
       account (default: 0.5)
     max_iter : int, optional
       Maximum number of iterations (default: 10)
+    max_distance : int, optional
+      Maximum size of markers to consider (default: 50)
 
     Returns
     -------
@@ -134,9 +142,9 @@ def find_markers_redness(frame, n_markers=4, min_redness=.5, max_iter=10):
         ix2 = []
         for i in range(n_markers):
             i1 = ix_cluster == i
-            i2 = distances[i] < 50
+            i2 = distances[i] < max_distance
             ix2 += list(ix[i1&i2,:])
-            ix2 = np.asarray(ix2)
+        ix2 = np.asarray(ix2)
 
         # exit iterations if nothing changed
         if ix.shape[0] == ix2.shape[0]:
