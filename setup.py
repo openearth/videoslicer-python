@@ -32,14 +32,14 @@ setup(
     keywords=['video slice timestacks crs deltares tudelft'],
     packages=find_packages(exclude=['docs', 'tests']),
     install_requires=[
-        'numpy',
-        'scipy',
-        'pandas',
         'scikit-learn',
+        'pandas',
+        'scipy',
+        'numpy',
         'docopt',
         'six',
     ],
-    python_requires='>=2.7, <4',
+    python_requires='>=3, <4',
     tests_require=[
         'nose'
     ],
