@@ -4,21 +4,21 @@ Source code documentation
 VideoSlicer
 ^^^^^^^^^^^
 
-.. autoclass:: videoslicer.VideoSlicer
+.. autoclass:: videoslicer.videoslicer.VideoSlicer
                :special-members:
                :members:
 
 VideoView
 ^^^^^^^^^
 
-.. autoclass:: videoslicer.VideoView
+.. autoclass:: videoslicer.videoslicer.VideoView
                :special-members:
                :members:
 
 VideoFrame
 ^^^^^^^^^^
 
-.. autoclass:: videoslicer.VideoFrame
+.. autoclass:: videoslicer.videoslicer.VideoFrame
                :special-members:
                :members:
 
@@ -26,7 +26,7 @@ VideoFrame
 VideoFrameCRS
 ^^^^^^^^^^^^^
 
-.. autoclass:: crs.VideoFrameCRS
+.. autoclass:: videoslicer.crs.VideoFrameCRS
                :special-members:
                :members:
 
@@ -34,11 +34,11 @@ VideoFrameCRS
 Marker detection
 ^^^^^^^^^^^^^^^^
 
-.. automodule:: markers
+.. automodule:: videoslicer.markers
 
 
 Utils
 ^^^^^
 
-.. automodule:: utils
+.. automodule:: videoslicer.utils
                 
