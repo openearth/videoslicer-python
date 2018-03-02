@@ -35,10 +35,12 @@ Marker detection
 ^^^^^^^^^^^^^^^^
 
 .. automodule:: videoslicer.markers
+                :members:
 
 
 Utils
 ^^^^^
 
 .. automodule:: videoslicer.utils
+                :members:
                 
