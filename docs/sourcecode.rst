@@ -26,7 +26,7 @@ VideoFrame
 VideoFrameCRS
 ^^^^^^^^^^^^^
 
-.. autoclass:: videoslicer.VideoFrameCRS
+.. autoclass:: crs.VideoFrameCRS
                :special-members:
                :members:
 
@@ -34,11 +34,11 @@ VideoFrameCRS
 Marker detection
 ^^^^^^^^^^^^^^^^
 
-.. automodule:: videoslicer.markers
+.. automodule:: markers
 
 
 Utils
 ^^^^^
 
-.. automodule:: videoslicer.utils
+.. automodule:: utils
                 
