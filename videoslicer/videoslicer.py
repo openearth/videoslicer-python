@@ -361,7 +361,10 @@ class VideoView(object):
         i = np.asarray(list(range(n)))
         if s is not None:
             i = i[s]
-        return list(i)
+        try:
+            return list(i)
+        except TypeError:
+            return [int(i)]
     
     
 class VideoFrame(np.ndarray):
@@ -396,17 +399,14 @@ class VideoFrame(np.ndarray):
 
         '''
         
-        arr = np.asarray(arr)
+        arr = np.asarray(arr).squeeze()
         
         if arr.ndim < 2 or arr.ndim > 3:
             raise TypeError('Invalid dimensions for image data ({:d}), '
                             'should have 2 or 3 non-unity dimensions.'.format(arr.ndim))
-        if arr.ndim == 3 and arr.shape[2] not in [1, 3, 4]:
-            raise TypeError('Invalid third dimension for image data ({:d}), '
-                            'should be 1, 3 or 4.'.format(arr.shape[2]))
-            
-        if arr.shape[-1] == 1:
-            arr = arr.squeeze()
+        if arr.ndim == 3 and arr.shape[-1] not in [1, 3, 4]:
+            raise TypeError('Invalid last dimension for image data ({:d}), '
+                            'should be 1, 3 or 4.'.format(arr.shape[-1]))
 
         obj = arr.view(cls, *args, **kwargs)
         obj.index = index
